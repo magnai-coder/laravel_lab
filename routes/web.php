@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Http\Controllers\MyController;
+use App\Http\Controllers\MyControllerAB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,9 +35,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::get('/lab3/{a}/{b}', function($a,$b){
-    $sum=$a+$b;
-    echo("Sum").$sum;
+Route::get('/lab3', function () {
+return view('lab3');
 });
+
+Route::get('/lab3/a/b', function () {
+    return view('ab');
+});
+
+
+Route::get('/lab3', function () {
+    return view('lab3');
+});
+
+Route::post('/lab3/a/b', [MyController::class, 'nextPage'])->name('ab.page.post');
+
+Route::get('/lab3/a/b', [MyControllerAB::class, 'yourNextPage'])->name('ab.page');
